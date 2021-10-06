@@ -2,7 +2,8 @@ from fastapi import APIRouter
 
 from app.services.users_service import (
     hello_user,
-    get_user_by_id
+    get_user_by_id,
+    create_user
 )
 
 router = APIRouter()
@@ -14,3 +15,7 @@ def helloUser ():
 @router.get("/{userId}")
 def getUser(userId: str):
     return get_user_by_id(userId)
+
+@router.post("")
+def getUser():
+    return create_user()

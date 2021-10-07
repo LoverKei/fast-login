@@ -5,6 +5,10 @@ from app.services.users_service import (
     get_user_by_id,
     create_user
 )
+from app.models.interfaces.users_interface import (
+    user_create_model,
+    user_response_model
+)
 
 router = APIRouter()
 
@@ -12,10 +16,10 @@ router = APIRouter()
 def helloUser ():
     return hello_user()
 
-@router.get("/{userId}")
+@router.get("/{userId}", response_model = user_response_model)
 def getUser(userId: str):
     return get_user_by_id(userId)
 
-@router.post("")
-def getUser():
-    return create_user()
+@router.post("", response_model = user_response_model)
+def getUser(user: user_create_model):
+    return create_user(user)

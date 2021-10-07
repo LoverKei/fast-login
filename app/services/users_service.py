@@ -1,22 +1,18 @@
+from fastapi import FastAPI, HTTPException
 from app.models.users_repository import (
     find_user_by_id,
-    insert_user
+    add_user
 )
+from app.models.interfaces.users_interface import user_create_model
 
 def hello_user() -> str:
     return "hello, user!!!"
 
 def get_user_by_id(id: str):
-    result = find_user_by_id(id)
-    print(result)
-    return result
+    user = find_user_by_id(id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
 
-def create_user():
-    dummy_user = {
-        "email": "test@test.com",
-        "nickname": "tester",
-        "password": "test pass word",
-        "name": "tester A",
-        "phone": "01022223333"
-    }
-    return insert_user(dummy_user)
+def create_user(user: user_create_model):
+    return add_user(user)

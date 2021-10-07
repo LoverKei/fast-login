@@ -1,8 +1,5 @@
 from typing import Optional
 from pydantic import BaseModel
-from bson import ObjectId
-
-from app.models.py_objectid import PyObjectId
 
 class user_create_model(BaseModel):
     email: str

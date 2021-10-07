@@ -9,4 +9,4 @@ app.include_router(api, prefix=API_PREFIX)
 
 @app.get("/")
 def read_root():
-    return { "hello, world!!!" }
+    return { "msg": "hello, world!!!" }

@@ -1,7 +1,3 @@
-# from pydantic import BaseModel
-import pydantic
-import struct
-# from pydantic import BaseModel, Field
 from bson import ObjectId
 
 class PyObjectId(ObjectId):

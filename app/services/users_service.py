@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import HTTPException
 from app.models.users_repository import (
     find_user_by_id,
     add_user

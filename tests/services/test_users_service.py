@@ -15,13 +15,12 @@ user = {
         "password": "test password"
 }
 
-@patch("app.services.users_service.find_user_by_id", MagicMock(return_value=None))
+@patch("app.models.users_repository.UserRepository.find_user_by_id", MagicMock(return_value=None))
 def test_get_user_with_404_error():
     response = client.get("api/users/615ea10e353e1774f9025d7F")
-    print(response)
     assert response.status_code == 404
 
-@patch("app.services.users_service.find_user_by_id", MagicMock(return_value=user))
+@patch("app.models.users_repository.UserRepository.find_user_by_id", MagicMock(return_value=user))
 def test_get_user_with_200_success():
     response = client.get("api/users/" + correct_id)
     assert response.status_code == 200

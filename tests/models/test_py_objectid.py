@@ -1,5 +1,5 @@
 from bson import ObjectId
-from app.models.py_objectid import convert_id
+from app.models.base.py_objectid import convert_id
 
 def test_convert_id_correctly():
     #Input

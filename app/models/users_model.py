@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from app.models.py_objectid import PyObjectId
+from app.models.base.py_objectid import PyObjectId
 from bson import ObjectId
 
 class User(BaseModel):

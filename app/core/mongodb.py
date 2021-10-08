@@ -24,6 +24,8 @@ class MongoDB(object):
 
     def __init_index(self):
         print("MondoDB - create index.")
+
+        # Users
         self.__client.users.create_index([('email', -1)], name='_email_', unique=True)
         self.__client.users.create_index([('phone', -1)], name='_phone_', unique=True)
 

@@ -1,18 +1,23 @@
 from fastapi import HTTPException
-from app.models.users_repository import (
-    find_user_by_id,
-    add_user
+from app.models.users_repository import UserRepository
+from app.models.interfaces.users_interface import (
+    user_create_model,
+    user_response_model
 )
-from app.models.interfaces.users_interface import user_create_model
 
-def hello_user() -> str:
-    return "hello, user!!!"
+class UserService:
+    def __init__(self):
+        self.userRepository = UserRepository()
 
-def get_user_by_id(id: str):
-    user = find_user_by_id(id)
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    return user
+    def hello_user(self) -> str:
+        return "hello, user!!!"
 
-def create_user(user: user_create_model):
-    return add_user(user)
+    def get_user_by_id(self, id: str) -> user_response_model:
+        user = self.userRepository.find_user_by_id(id)
+
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        return user
+
+    def create_user(self, user: user_create_model) -> user_response_model:
+        return self.userRepository.add_user(user)

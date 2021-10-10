@@ -26,6 +26,7 @@ RUN: uvicorn app.main:app --reload
 
 
 Example:
+- 
     Step1. verify Phone with SMS code
     - localhost:8000/api/auth/verify
         { phone: "010-1111-1111" }

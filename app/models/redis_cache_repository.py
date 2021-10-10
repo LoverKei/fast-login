@@ -19,3 +19,18 @@ class RedisCacheRepository(CacheRepository):
         
         if expired >= self.__DEFAULT_EXPIRED:
             client.expire(key, expired)
+
+    def get(self, key: str):
+        client = Redis().get_client()
+        data = client.get(key)
+        if data:
+            return data.decode('utf-8')
+
+        return None
+
+    def set(self, key: str, value: any, expired = -1):
+        client = Redis().get_client()
+        client.set(key, value.encode('utf-8'))
+
+        if expired >= self.__DEFAULT_EXPIRED:
+            client.expire(key, expired)

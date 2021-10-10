@@ -1,4 +1,5 @@
 import traceback
+from typing import Optional
 from bson.objectid import ObjectId
 from fastapi import HTTPException
 import pymongo
@@ -8,6 +9,10 @@ from app.models.base.py_objectid import convert_id
 from app.models.base.base_mongo import BaseMongoRepository
 from app.models.redis_cache_repository import RedisCacheRepository
 from app.models.interfaces.users_interface import user_create_model
+
+class UserSearchCondition:
+    email: Optional[str]
+    phone: Optional[str]
 
 class UserRepository(BaseMongoRepository):
     def __init__(self, cacheRepo = RedisCacheRepository):
@@ -24,6 +29,10 @@ class UserRepository(BaseMongoRepository):
 
         result = self.__db.find_one({ "_id": ObjectId(id) })
 
+        return convert_id(result)
+
+    def find_user(self, condition: UserSearchCondition):
+        result = self.__db.find_one(condition)
         return convert_id(result)
 
     def add_user(self, user: user_create_model):

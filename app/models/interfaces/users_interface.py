@@ -7,6 +7,8 @@ class user_create_model(BaseModel):
     password: str
     name: str
     phone: str
+    code: str
+    verify_token: str
 
 class user_response_model(BaseModel):
     id: str

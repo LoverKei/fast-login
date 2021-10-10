@@ -17,4 +17,16 @@ class UserService:
         return user
 
     def create_user(self, user: user_create_model) -> User:
+        self.check_email_is_taken(user.email)
+        self.check_phone_is_taken(user.phone)
         return self.userRepository.add_user(user)
+
+    def check_email_is_taken(self, email):
+        user = self.userRepository.find_user({ "email" : email})
+        if user:
+            raise HTTPException(status_code=400, detail="Already exists email")
+
+    def check_phone_is_taken(self, phone):
+        user = self.userRepository.find_user({ "phone": phone})
+        if user:
+            raise HTTPException(status_code=400, detail="Already exists phone")

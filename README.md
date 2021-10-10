@@ -9,7 +9,7 @@ ENV:
     - mongodb
     - redis
 
-PRE-INSTALL:
+PRE-INSTALL: (libs)
     - pip install fastapi
     - pip install uvicorn
 
@@ -18,5 +18,8 @@ PRE-INSTALL:
 
     - pip install pymongo
     - pip install redis
+
+    - pip install "python-jose[cryptography]"
+    - pip install "passlib[bcrypt]"
 
 RUN: uvicorn app.main:app --reload

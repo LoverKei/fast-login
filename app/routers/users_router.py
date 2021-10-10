@@ -1,22 +1,18 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, HTTPException
 
 from app.services.users_service import UserService
 from app.models.interfaces.users_interface import (
-    user_create_model,
     user_response_model
 )
+from app.services.auth_service import AuthService
 
 router = APIRouter()
 userService = UserService()
-
-@router.get("")
-def helloUser ():
-    return userService.hello_user()
+authService = AuthService()
 
 @router.get("/{userId}", response_model = user_response_model)
-def getUser(userId: str):
-    return userService.get_user_by_id(userId)
+def getUser(userId: str, token_data = Depends(authService.verify_user)):
+    if (userId != token_data.id):
+        raise HTTPException(status_code=403, detail="Permission denied. Can not access others info.")
 
-@router.post("", response_model = user_response_model)
-def getUser(user: user_create_model):
-    return userService.create_user(user)
+    return userService.get_user_by_id(userId)

@@ -2,6 +2,7 @@ import traceback
 from bson.objectid import ObjectId
 from fastapi import HTTPException
 import pymongo
+import json
 
 from app.models.base.py_objectid import convert_id
 from app.models.base.base_mongo import BaseMongoRepository

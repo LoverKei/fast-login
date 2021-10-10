@@ -14,3 +14,7 @@ class user_response_model(BaseModel):
     nickname: str
     name: str
     phone: str
+
+class user_signin_model(BaseModel):
+    id: str
+    password: str

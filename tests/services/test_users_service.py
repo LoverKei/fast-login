@@ -1,9 +1,8 @@
-from fastapi.testclient import TestClient
 from unittest.mock import MagicMock, patch
 
-from app.main import app
+from app.services.users_service import UserService
 
-client = TestClient(app)
+userService = UserService()
 
 correct_id = "615ea10e353e1774f9025d7e"
 user = {
@@ -17,11 +16,17 @@ user = {
 
 @patch("app.models.users_repository.UserRepository.find_user_by_id", MagicMock(return_value=None))
 def test_get_user_with_404_error():
-    response = client.get("api/users/615ea10e353e1774f9025d7F")
-    assert response.status_code == 404
+    try:
+        user = userService.get_user_by_id("615ea10e353e1774f9025d7F")
+        if user:
+            assert False
+    except Exception:
+        assert True
 
 @patch("app.models.users_repository.UserRepository.find_user_by_id", MagicMock(return_value=user))
 def test_get_user_with_200_success():
-    response = client.get("api/users/" + correct_id)
-    assert response.status_code == 200
-    assert response.json()["id"] == correct_id
+    try:
+        user = userService.get_user_by_id(correct_id)
+        assert user["id"] == correct_id
+    except Exception:
+        assert False

@@ -1,6 +1,10 @@
 # fast-login
 login service with fastAPI
 
+Scope: https://github.com/LoverKei/fast-login/wiki/To-do-list
+ - signup, signin, verify SMS.
+ - Not implements: reset password
+
 python version: 3.9.7
 
 ENV:
@@ -53,3 +57,7 @@ Example:
 
     Step4. Get my info
     - localhost:8000/api/users/{my user id}
+
+    
+    
+ 
